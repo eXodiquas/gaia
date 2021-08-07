@@ -8,4 +8,4 @@
   :components ((:module "t"
                 :serial t
                 :components
-                ((:file "gaia")))))
+                ((:file "individual")))))
