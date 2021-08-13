@@ -8,7 +8,7 @@ Currently the library is unusable and nothing works.
 
 ## Next Steps
 
-- [] Individuals
-- [] Populations
+- [X] Individuals
+- [X] Populations
 - [] Crossover
 - [] Mutation
