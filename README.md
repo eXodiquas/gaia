@@ -34,7 +34,7 @@ After 100 steps we return the average fitness of the population. We could also g
 
 Now that basic evaluation is possible I want to implement more strategies.
 
-- [] Tournament Selection
+- [ ] Tournament Selection
 - [] Stochastic Uniform Sampling Selection
 - [] Bit-Strings as gene type for individuals
 - [] Mutation for integers
