@@ -4,6 +4,7 @@
 (fiveam:in-suite individual-tests)
 
 (fiveam:test individual-initialization
+  "Tests the initialization of single individuals."
   (let ((i0 (new-individual (lambda (x) (apply #'+ x)) :genes '(1 2 3 4 5)))
 	(i1 (new-individual (lambda (x) (apply #'+ x)) :genes '()))
 	(i2 (new-individual (lambda (x) (apply #'+ x)) :genes '(1)))
@@ -14,6 +15,7 @@
     (fiveam:is (eql (evaluate-fitness i3)  0))))
 
 (fiveam:test individual-init-genes
+  "Tests the gene initialization for individuals."
   (let ((i0 (new-individual (lambda (x) (apply #'+ x))))
 	(i1 (new-individual (lambda (x) (apply #'+ x))))
 	(i2 (new-individual (lambda (x) (apply #'+ x))))
