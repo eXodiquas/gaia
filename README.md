@@ -35,10 +35,10 @@ After 100 steps we return the average fitness of the population. We could also g
 Now that basic evaluation is possible I want to implement more strategies.
 
 - [ ] Tournament Selection
-- [] Stochastic Uniform Sampling Selection
-- [] Bit-Strings as gene type for individuals
-- [] Mutation for integers
-- [] Mutation for bit-strings
-- [] Make parameter accessible (like for example, what proportion of the N best individuals should be used for uniform recombination)
-- [] Macro to not always have to write (lambda (x) (apply #'fun x)) as fitness function
-- [] Make it easier to setup maximizing or minimizing algorithms
+- [ ] Stochastic Uniform Sampling Selection
+- [ ] Bit-Strings as gene type for individuals
+- [ ] Mutation for integers
+- [ ] Mutation for bit-strings
+- [ ] Make parameter accessible (like for example, what proportion of the N best individuals should be used for uniform recombination)
+- [ ] Macro to not always have to write (lambda (x) (apply #'fun x)) as fitness function
+- [ ] Make it easier to setup maximizing or minimizing algorithms
