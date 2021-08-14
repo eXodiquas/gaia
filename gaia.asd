@@ -19,4 +19,5 @@
   :serial t
   :depends-on (#:gaia
 	       #:fiveam)
-  :components ((:file "t/individual")))
+  :components ((:file "t/individual")
+	       (:file "t/population")))

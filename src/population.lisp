@@ -25,7 +25,7 @@
   "Returns a newly generated population with AMOUNT of individuals and 
 the fitness function FF."
   (let ((res-pop (new-population ())))
-    (loop for i upto amount do
+    (loop for i upto (1- amount) do
       (let ((ind (new-individual ff)))
 	(initialize-genes-with-normalized ind gene-amount)
 	(evaluate-fitness ind)
@@ -43,6 +43,6 @@ POPULATION object."
   (if (not (zerop (length (population-individuals p))))
     (let ((result 0))
       (loop for i in (population-individuals p) do
-	(incf result (individual-current-fitness i)))
+	(incf result (evaluate-fitness i)))
       (setf (population-fitness p) (/ result (length (population-individuals p)))))
     0))
