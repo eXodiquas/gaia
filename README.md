@@ -43,3 +43,8 @@ Now that basic evaluation is possible I want to implement more strategies.
 - [ ] Make parameter accessible (like for example, what proportion of the N best individuals should be used for uniform recombination)
 - [ ] Macro to not always have to write (lambda (x) (apply #'fun x)) as fitness function
 - [ ] Make it easier to setup maximizing or minimizing algorithms
+
+Also I want to implement monitoring.
+- [ ] Console output to see progress
+- [ ] Log files to look at progress
+- [ ] Creating a graph to easy see the development of the population
