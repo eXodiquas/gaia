@@ -32,9 +32,8 @@ optinal initialized genes. "
   "Evaluates the fitness of a given gene and caches the result in the object.
 The result is also returned."
   (let ((result
-          (apply (individual-fitness-function i) (individual-genes i))))
-    (setf (individual-current-fitness i) result)
-    result))
+          (funcall (individual-fitness-function i) (individual-genes i))))
+    (setf (individual-current-fitness i) result)))
 
 ;;; Functions to initialize the genes of a individual.
 

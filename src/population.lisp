@@ -18,16 +18,16 @@
   "Returns a newly generated population with the given individuals."
   (let ((result (make-instance 'population :individuals ())))
     (loop for i in individuals do
-      (push i result))
+      (push i (population-individuals result)))
     result))
 
-(defun new-population-initialized (amount ff)
+(defun new-population-initialized (amount ff &key (gene-amount 1))
   "Returns a newly generated population with AMOUNT of individuals and 
 the fitness function FF."
   (let ((res-pop (new-population ())))
     (loop for i upto amount do
       (let ((ind (new-individual ff)))
-	(initialize-genes-with-normalized ind 1)
+	(initialize-genes-with-normalized ind gene-amount)
 	(evaluate-fitness ind)
 	(push ind (population-individuals res-pop))))
     (evaluate-fitness res-pop)

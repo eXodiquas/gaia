@@ -5,9 +5,18 @@
   :author "Timo Netzer <exodiquas@gmail.com>"
   :license  "WTFPL"
   :version "0.0.1"
-  :components ((:module "src"
-                :serial t
-                :components
-                ((:file "package")
-                 (:file "gaia")
-                 (:file "individual")))))
+  :serial t
+  :components ((:file "src/package")
+	       (:file "src/gaia")
+	       (:file "src/individual")
+	       (:file "src/population")))
+
+(asdf:defsystem #:gaia-test
+  :description "Tests for the Gaia system."
+  :author "Timo Netzer <exodiquas@gmail.com>"
+  :license  "WTFPL"
+  :version "0.0.1"
+  :serial t
+  :depends-on (#:gaia
+	       #:fiveam)
+  :components ((:file "t/individual")))
