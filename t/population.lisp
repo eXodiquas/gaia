@@ -19,4 +19,20 @@
     (fiveam:is (= (evaluate-fitness p1) (/ 1 2)))
     (fiveam:is (< 0 (evaluate-fitness p2) 10000))))
 
+(fiveam:test converging-population
+  "Tests the converging behaviour of a population"
+  (let ((p (new-population-initialized 100 (lambda (x) (apply #'+ x)) :gene-amount 10)))
+    (loop for count upto 100 do
+      (setf p (next-generation p)))
+    (fiveam:is (> (population-fitness p) 9.0))))
+
+(fiveam:test converging-population-x-squared
+  "Tests the converging behaviour of a population on f(x) = -x² + 100"
+  (let ((p (new-population-initialized 100 (lambda (x) (apply (lambda (y) (+ (- (* y y)) 100)) x)) :gene-amount 1)))
+    (loop for count upto 100 do
+      (setf p (next-generation p)))
+    (fiveam:is (> (population-fitness p) 99.0))))
+
 (fiveam:run! 'population-initialization)
+(fiveam:run! 'converging-population)
+(fiveam:run! 'converging-population-x-squared)

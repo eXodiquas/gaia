@@ -6,10 +6,29 @@
 		:initarg :individuals
 		:type list
 		:documentation "List of all individuals in the population.")
+   (individual-type :accessor population-individual-type
+		    :initarg :individual-type
+		    :initform :real
+		    :type symbol
+		    :documentation "Type of the genes of the individuals in the
+population. This is used to determine the correct algorithms for recombination and
+mutation. Currently there are the following supported types: :real")
    (fitness :accessor population-fitness
 	    :initform 0
 	    :type real
-	    :documentation "The average fitness of all individuals of the population."))
+	    :documentation "The average fitness of all individuals of the population.")
+   (crossover :accessor population-crossover
+	      :initarg :crossover
+	      :initform :uniform
+	      :type symbol
+	      :documentation "The type of crossover that should be performed in each generation.
+Currently there are the following implementations: :uniform")
+   (mutation-rate :accessor population-mutation-rate
+		  :initarg :mutation-rate
+		  :initform 0.05
+		  :type real
+		  :documentation "The chance of a gene to randomly mutate. The mutation rate has to be in the
+intervall [0.0, 1.0]."))
   (:documentation "Represents a population for a genetic algorithm."))
 
 ;;; Constructor functions
@@ -46,3 +65,46 @@ POPULATION object."
 	(incf result (evaluate-fitness i)))
       (setf (population-fitness p) (/ result (length (population-individuals p)))))
     0))
+
+(defmethod fitness-biased-selection ((p population) (n integer))
+  "Takes a population P and returns the N fittest individuals in a list."
+  (loop for i in (sort
+		  (population-individuals p)
+		  #'(lambda (x y) (> (individual-current-fitness x) (individual-current-fitness y))))
+	for j from 0 upto (1- n) collect i))
+
+(defmethod uniform-recombination ((p population))
+  "Applies uniform crossover on 50% of the fittest individuals and adds the children to the next
+generation. This is repeated until the next generation has exactly as many children as the original
+population."
+  (let* ((pop-size (length (population-individuals p)))
+	 (fittests (fitness-biased-selection p (ceiling pop-size 2)))
+	 (next-gen (new-population '())))
+    (loop for i upto (ceiling pop-size 2) do
+      (let ((p0 (nth (random (length fittests)) fittests))
+	    (p1 (nth (random (length fittests)) fittests)))
+	(multiple-value-bind (c0 c1) (uniform-crossover p0 p1)
+	  (when (< (length (population-individuals next-gen)) pop-size)
+	    (push c0 (population-individuals next-gen)))
+	  (when (< (length (population-individuals next-gen)) pop-size)
+	    (push c1 (population-individuals next-gen))))))
+    (evaluate-fitness next-gen)
+    next-gen))
+
+(defmethod recombination ((p population))
+  "Applies the configured recombination algorithm."
+  (case (population-crossover p) (:uniform (uniform-recombination p))))
+
+(defmethod mutate-population ((p population))
+  "Applies the configured mutation algorithm."
+  (loop for i in (population-individuals p) do
+    (when (< (population-mutation-rate p) (random 1.0))
+      (case (population-individual-type p) (:real (real-mutate i))))))
+
+(defmethod next-generation ((p population))
+  "Takes a population P and applies the configurated steps to calculate
+the next population P' which is returned."
+  (let ((recombinated-population (recombination p)))
+    (mutate-population p)
+    (evaluate-fitness recombinated-population)
+    recombinated-population))
