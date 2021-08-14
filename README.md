@@ -5,6 +5,7 @@ Gaia allows easy usage of genetic and evolutionary algorithms.
 ## Current State
 
 Currently only basic calculations are possible. Only real variables can be used as genes (at least in a somewhat comfortable manner).
+I am 100% positive that, currently, it is possible to break the library by just looking at it in the wrong way, if you find any wrong behaviour or any arcane error message or anything does not work as expected, please hit me with an issue.
 
 ## Example Usage
 
