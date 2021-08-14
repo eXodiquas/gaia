@@ -1,5 +1,7 @@
 ;;;; Tests for individual.lisp
 
+(in-package :gaia)
+
 (fiveam:def-suite individual-tests)
 (fiveam:in-suite individual-tests)
 

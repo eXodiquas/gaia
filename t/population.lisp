@@ -1,5 +1,7 @@
 ;;;; Tests for population.lisp
 
+(in-package :gaia)
+
 (fiveam:def-suite population-tests)
 (fiveam:in-suite population-tests)
 
