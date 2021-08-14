@@ -16,7 +16,8 @@ Currently only basic calculations are possible. Only real variables can be used 
       (setf p (next-generation p)))
     (population-fitness p))
 
-``` 
+```
+The result of this calculation is ~99.9999, which is close enough. At least we didn't have to do the algebra. AMIRIGHT?
 
 This chunky looking piece of code first binds a pre-initialized population with fitness function f(x) = -x² + 100 to the local variable p. :gene-amount tells us how many genes an individual should have. We only want 1 gene per individual, otherwise it would not fit with our fitness function.
 A pre-initialized population runs on :real values with a mutation rate of 5%.
