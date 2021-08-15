@@ -1,4 +1,4 @@
-# Gaia
+![Gaia](assets/gaia400.png)
 
 Gaia allows easy usage of genetic and evolutionary algorithms.
 
