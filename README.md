@@ -48,3 +48,7 @@ Also I want to implement monitoring.
 - [ ] Console output to see progress
 - [ ] Log files to look at progress
 - [ ] Creating a graph to easy see the development of the population
+
+Improvements for the future
+
+- [ ] Implement fitness functions in a neater way(tm)

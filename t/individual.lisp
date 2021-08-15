@@ -7,10 +7,10 @@
 
 (fiveam:test individual-initialization
   "Tests the initialization of single individuals."
-  (let ((i0 (new-individual (lambda (x) (apply #'+ x)) :genes '(1 2 3 4 5)))
-	(i1 (new-individual (lambda (x) (apply #'+ x)) :genes '()))
-	(i2 (new-individual (lambda (x) (apply #'+ x)) :genes '(1)))
-	(i3 (new-individual (lambda (x) (apply #'+ x)))))
+  (let ((i0 (new-individual (defit #'+) :genes '(1 2 3 4 5)))
+	(i1 (new-individual (defit #'+) :genes '()))
+	(i2 (new-individual (defit #'+) :genes '(1)))
+	(i3 (new-individual (defit #'+))))
     (fiveam:is (eql (evaluate-fitness i0) 15))
     (fiveam:is (eql (evaluate-fitness i1)  0))
     (fiveam:is (eql (evaluate-fitness i2)  1))
@@ -18,10 +18,10 @@
 
 (fiveam:test individual-init-genes
   "Tests the gene initialization for individuals."
-  (let ((i0 (new-individual (lambda (x) (apply #'+ x))))
-	(i1 (new-individual (lambda (x) (apply #'+ x))))
-	(i2 (new-individual (lambda (x) (apply #'+ x))))
-	(i3 (new-individual (lambda (x) (apply #'+ x)))))
+  (let ((i0 (new-individual (defit #'+)))
+	(i1 (new-individual (defit #'+)))
+	(i2 (new-individual (defit #'+)))
+	(i3 (new-individual (defit #'+))))
     (initialize-genes-with-function i0 (lambda (x) x) 10)
     (initialize-genes-with-function i1 (lambda (x) (* x x)) 5)
     (initialize-genes-with-normalized i2 5)

@@ -23,10 +23,18 @@ fitness evaluation."))
 
 (defun new-individual (ff &key (genes ()))
   "Returns a newly generated individual with the given fitness function and
-optinal initialized genes. "
+optinal initialized genes."
   (make-instance 'individual :fitness-function ff :genes genes))
 
-;;; Functions regarding the fitness of a individual.
+;;; Utility functions
+
+(defun defit (fun)
+  "Returns the given function FUN in a way it can be used as a fitness function.
+DEFIT wraps FUN in an APPLY form so every gene of the individual is used as an input
+for the fitness function."
+  (lambda (x) (apply fun x)))
+
+;;; Methods
 
 (defmethod evaluate-fitness ((i individual))
   "Evaluates the fitness of a given gene and caches the result in the object.
@@ -34,8 +42,6 @@ The result is also returned."
   (let ((result
           (funcall (individual-fitness-function i) (individual-genes i))))
     (setf (individual-current-fitness i) result)))
-
-;;; Functions to initialize the genes of a individual.
 
 (defmethod initialize-genes-with-function ((i individual)
                                            (fun function)
@@ -58,7 +64,7 @@ parameter and every gene is a number in [0.0,1.0]"
                                     (random 1.0))
                                   amount))
 
-;;; Crossover functions
+;;; Crossover
 
 (defmethod uniform-crossover ((i0 individual) (i1 individual))
   "Implementation for the uniform crossover. Takes two individuals I0 and I1 and
@@ -73,7 +79,7 @@ second one is the left side of I1 and the right side of I0."
     (values (new-individual (individual-fitness-function i0) :genes (concatenate 'list i0l i1r))
 	    (new-individual (individual-fitness-function i1) :genes (concatenate 'list i1l i0r)))))
 
-;;; Mutation functions
+;;; Mutation
 
 (defmethod real-mutate ((i individual))
   "A mutation working on real numbers with a 50% chance to increase a gene by 50% of its value or decreasing it by 50%."

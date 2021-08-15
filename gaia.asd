@@ -3,7 +3,7 @@
 (asdf:defsystem #:gaia
   :description "Gaia allows easy usage of genetic and evolutionary algorithms."
   :author "Timo Netzer <exodiquas@gmail.com>"
-  :license  "WTFPL"
+  :license  "MIT"
   :version "0.0.1"
   :serial t
   :components ((:file "src/package")
@@ -14,7 +14,7 @@
 (asdf:defsystem #:gaia-test
   :description "Tests for the Gaia system."
   :author "Timo Netzer <exodiquas@gmail.com>"
-  :license  "WTFPL"
+  :license  "MIT"
   :version "0.0.1"
   :serial t
   :depends-on (#:gaia

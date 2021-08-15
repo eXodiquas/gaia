@@ -8,8 +8,8 @@
 (fiveam:test population-initialization
   "Tests the initialization of a population."
   (let* ((p0 (new-population '()))
-	 (i0 (new-individual (lambda (x) (apply #'+ x)) :genes '()))
-	 (i1 (new-individual (lambda (x) (apply #'+ x)) :genes '(1)))
+	 (i0 (new-individual (defit #'+) :genes '()))
+	 (i1 (new-individual (defit #'+) :genes '(1)))
 	 (p1 (new-population (list i0 i1)))
 	 (p2 (new-population-initialized 100 (lambda (x) (apply #'+ x)) :gene-amount 100)))
     (fiveam:is (= (length (population-individuals p0))   0))
@@ -21,14 +21,14 @@
 
 (fiveam:test converging-population
   "Tests the converging behaviour of a population"
-  (let ((p (new-population-initialized 100 (lambda (x) (apply #'+ x)) :gene-amount 10)))
+  (let ((p (new-population-initialized 100 (defit #'+) :gene-amount 10)))
     (loop for count upto 100 do
       (setf p (next-generation p)))
     (fiveam:is (> (population-fitness p) 9.0))))
 
 (fiveam:test converging-population-x-squared
   "Tests the converging behaviour of a population on f(x) = -x² + 100"
-  (let ((p (new-population-initialized 100 (lambda (x) (apply (lambda (y) (+ (- (* y y)) 100)) x)) :gene-amount 1)))
+  (let ((p (new-population-initialized 100 (defit (lambda (y) (+ (- (* y y)) 100))) :gene-amount 1)))
     (loop for count upto 100 do
       (setf p (next-generation p)))
     (fiveam:is (> (population-fitness p) 99.0))))
